@@ -55,6 +55,7 @@ const
   SLVS_C_WHERE_DRAGGED* = 100031
   SLVS_C_CURVE_CURVE_TANGENT* = 100032
   SLVS_C_LENGTH_DIFFERENCE* = 100033
+  
 type
   Slvs_hParam* {.importc, impslvsHdr.} = uint32
   Slvs_hEntity* {.importc, impslvsHdr.} = uint32

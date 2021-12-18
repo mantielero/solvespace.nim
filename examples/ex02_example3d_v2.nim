@@ -6,9 +6,9 @@ import solvespace
 proc main =
   var sys = newSystem()
   
-  let group1 = 1'u                          # This will contain a single group, which will arbitrarily number 1.
-  let p1 = sys.addPoint(group1, 10,10,10)   # A point, initially at (x y z) = (10 10 10)
-  let p2 = sys.addPoint(group1, 20,20,20)   # and a second point at (20 20 20)
+  let group1:IdGroup = 1                          # This will contain a single group, which will arbitrarily number 1.
+  let p1 = sys.addPoint(10,10,10, group1)   # A point, initially at (x y z) = (10 10 10)
+  let p2 = sys.addPoint(20,20,20, group1)   # and a second point at (20 20 20)
 
   let segment = sys.newSegment(group1, wpFree, p1, p2)
 
