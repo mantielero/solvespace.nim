@@ -1,3 +1,7 @@
+# About
+**solvespace.nim** is a library wrappeing SolveSpace's geometric constraint solver. This enables the calculation of the geometry by setting conditions such as: distance between points, distance between line and point, and many others.
+
+This could be used in conjunction with [occt.nim](https://github.com/mantielero/occt.nim).
 
 
 # Support

@@ -9,11 +9,7 @@ proc solve*( s:var System; group:uint ):Result =
   s.sys.entity      = cast[ptr UncheckedArray[Slvs_Entity]](s.entities[0].unsafeAddr)
   s.sys.constraint  = cast[ptr UncheckedArray[Slvs_Constraint]](s.constraints[0].unsafeAddr)  
 
-  echo s.sys
-
   Slvs_Solve(cast[ptr Slvs_System](s.sys.unsafeAddr), group.Slvs_hGroup )  # Slvs_Solve(sys.unsafeAddr, g)
-
-  echo s.sys  
 
   result = case s.sys.result:
             of SLVS_RESULT_OKAY:              rOK

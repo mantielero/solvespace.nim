@@ -2,6 +2,13 @@
 An example of a constraint in 2d. In our first group, we create a workplane
 along the reference frame's xy plane. In a second group, we create some
 entities in that group and dimension them.
+
+The original demo returns:
+solved okay
+line from (10.000 11.180) to (10.000 -18.820)
+arc center (101.114 119.042) start (116.477 111.762) finish (117.409 114.197)
+circle center (200.000 200.000) radius 17.000
+6 DOF  
 ]#
 import solvespace
 
@@ -56,16 +63,11 @@ proc main =
   # And the distance from one endpoint to the origin is 15.0 units.
   let constraint4 = sys.constrainDistance( origin, p1, 15, wp, g )
 
-  #[ #if 0
-      /* And same for the other endpoint; so if you add this constraint then
-      * the sketch is overconstrained and will signal an error. */
-      sys.constraint[sys.constraints++] = Slvs_MakeConstraint(
-                                              5, g,
-                                              SLVS_C_PT_PT_DISTANCE,
-                                              200,
-                                              18.0,
-                                              302, 101, 0, 0);
-  #endif /* 0 */ ]#
+  if false:  
+    # And same for the other endpoint; so if you add this constraint then
+    # the sketch is overconstrained and will signal an error. */
+    let constraint7 = sys.constrainDistance(origin, p2, 18, wp, g)
+
 
   # The arc and the circle have equal radius.
   let constraint5 = sys.constrainEqualRadius(aoc1, circle, wp, g) # OK
@@ -82,19 +84,11 @@ proc main =
     let pid2 = seg.point[1]
     let paramId1 = sys.getEntity(pid1).param[0]
     let paramId2 = sys.getEntity(pid1).param[1]  
-    echo sys.getParam(paramId1).val, " ", sys.getParam(paramId2).val    
-    echo sys.entities
     sys.showEntities()
 
 main()
 
-#[
-solved okay
-line from (10.000 11.180) to (10.000 -18.820)
-arc center (101.114 119.042) start (116.477 111.762) finish (117.409 114.197)
-circle center (200.000 200.000) radius 17.000
-6 DOF  
-]#
+
 
 #[
 

@@ -23,7 +23,6 @@ proc showEntities*(sys:System) =
         echo "   Point2d: ", sys.coord(i.h.Point2d)
       of SLVS_E_DISTANCE:
         echo "   Distance: ", sys.getParam(i.param[0]).val
-        echo "             ", i
       of SLVS_E_NORMAL_IN_3D:
         echo "   Normal3d: ", sys.getQuaternion(i.h.Normal3d)   
       of SLVS_E_WORKPLANE:
@@ -36,7 +35,7 @@ proc showEntities*(sys:System) =
         echo "     - to:   ", sys.showPoint(i.point[1]) 
       of SLVS_E_ARC_OF_CIRCLE:
         echo "   ArcOfCircle:"
-        echo "     - normal: ", sys.getQuaternion(i.normal.Normal3d) 
+        echo "     - normal: Quaternion: ", sys.getQuaternion(i.normal.Normal3d) 
         echo "     - center: ", sys.showPoint(i.point[0])
         echo "     - from:   ", sys.showPoint(i.point[1])
         echo "     - to:     ", sys.showPoint(i.point[2])
