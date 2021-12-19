@@ -15,11 +15,18 @@ proc addPoint*[X,Y,Z:SomeNumber](sys:var System; x:X; y:Y; z:Z; group:IdGroup = 
   sys.entityNewId += 1  
 
 
-proc xid*(sys:var System, p:Point3d):IdParam =
+proc xid*(sys:System; p:Point3d):IdParam =
   sys.getEntity(p).param[0]
 
-proc yid*(sys:var System, p:Point3d):IdParam =
+proc yid*(sys:System; p:Point3d):IdParam =
   sys.getEntity(p).param[1]  
 
-proc zid*(sys:var System, p:Point3d):IdParam =
-  sys.getEntity(p).param[2]  
+proc zid*(sys:System; p:Point3d):IdParam =
+  sys.getEntity(p).param[2]
+
+proc coord*(sys:System; p:Point3d):tuple[x,y,z:float] =
+  let xid = sys.xid(p)
+  let yid = sys.yid(p)  
+  let zid = sys.zid(p)   
+  (sys.params[xid-1].val, sys.params[yid-1].val, sys.params[zid-1].val)
+

@@ -9,21 +9,9 @@ proc main =
   var sys = newSystem()
   var g:IdGroup = 1  
 
-  # First, we create our workplane. Its origin corresponds to the origin
-  # of our base frame (x y z) = (0 0 0)
-  #let origin = sys.addPoint(g, 0,0,0) 
-
-  # Get the normal entity given two vectors
-  #let normal = sys.addNormal(g, 1, 0, 0, 
-  #                              0, 1, 0)
-
-
-  #sys.entity[sys.entities++] = Slvs_MakeWorkplane(200, g, 101, 102); ]#
-
-
   let wp = sys.addWorkplane( 0, 0, 0, # Origin
-                                    1, 0, 0, 
-                                    0, 1, 0, g)
+                             1, 0, 0, 
+                             0, 1, 0, g)
   # Now create a second group. We'll solve group 2, while leaving group 1
   # constant; so the workplane that we've created will be locked down,
   # and the solver can't move it. 
@@ -80,10 +68,10 @@ proc main =
   #endif /* 0 */ ]#
 
   # The arc and the circle have equal radius.
-  let constraint5 = sys.constrainEqualRadius(aoc1, circle, wp, g)
+  let constraint5 = sys.constrainEqualRadius(aoc1, circle, wp, g) # OK
 
   # The arc has radius 17.0 units.
-  let constraint6 = sys.constrainDiameter(aoc1, 17 * 2, wp, g)
+  let constraint6 = sys.constrainDiameter(aoc1, 17 * 2, wp, g)    # OK
 
   # SOLVE
   let res = sys.solve(g)
@@ -96,8 +84,17 @@ proc main =
     let paramId2 = sys.getEntity(pid1).param[1]  
     echo sys.getParam(paramId1).val, " ", sys.getParam(paramId2).val    
     echo sys.entities
+    sys.showEntities()
+
 main()
 
+#[
+solved okay
+line from (10.000 11.180) to (10.000 -18.820)
+arc center (101.114 119.042) start (116.477 111.762) finish (117.409 114.197)
+circle center (200.000 200.000) radius 17.000
+6 DOF  
+]#
 
 #[
 

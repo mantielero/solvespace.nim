@@ -13,5 +13,5 @@ import lib/[constants, types, system, params, point3d, segment, constraints, qua
 export constants, types, system, params, point3d, segment, constraints, quaternion, drag, workplane, normal, solve, point2d, arcofcircle
 
 
-import lib/[distance, circle]
-export distance, circle
+import lib/[distance, circle, showing]
+export distance, circle, showing

@@ -17,10 +17,10 @@ proc newConstraint*[N:SomeNumber;P1,P2:Point2d | Point3d]( sys:var System;
 
 
 
-proc constrainDistance*[N:SomeNumber; P1,P2:Point3d | Point2d](sys:var System; p1:P1;p2:P2; distance:N; 
+proc constrainDistance*[N:SomeNumber; P1,P2:Point3d | Point2d](sys:var System; p1:P1; p2:P2; distance:N; 
           workplane:Workplane = wpFree; group:IdGroup = 0):Slvs_Constraint = 
   newConstraint( sys, cDistancePtPt, distance,
-                 p1, p2, workplane, group )
+                 p1, p2, 0.IdEntity, 0.IdEntity, workplane, group )
 
 proc constrainDistance*[N:SomeNumber](sys:var System; s:Segment; distance:N; 
           workplane:Workplane = wpFree; group:IdGroup = 0):Slvs_Constraint = 

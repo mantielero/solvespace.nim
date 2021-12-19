@@ -18,3 +18,4 @@ proc getParam*(sys:System, p:IdParam):Slvs_Param =
 
 proc getEntity*(sys:System, e:IdEntity):Slvs_Entity =
   sys.entities[e - 1]
+
