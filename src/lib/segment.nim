@@ -1,17 +1,15 @@
 import ../wrapper/slvs
 import types, constants, system
 
-proc addSegment*[T:Point3d | Point2d](sys:var System; p1,p2:T; workplane:Workplane; group:IdGroup = 0 ):Segment =
-  var grp = group
-  if grp == 0:
-    grp = sys.groupNewId
+proc addSegment*[T:Point3d | Point2d](sys:var System; p1,p2:T; workplane:Workplane; group:IdGroup ):Segment =
   result = sys.entityNewId.Segment
-  sys.entities &= Slvs_MakeLineSegment( result.IdEntity, grp.IdGroup, 
+  sys.entities &= Slvs_MakeLineSegment( result.IdEntity, group.IdGroup, 
                                         workplane.IdEntity, 
                                         p1.IdEntity, p2.IdEntity )
   sys.entityNewId += 1
 
-
+proc addSegment*[T:Point3d | Point2d](sys:var System; p1,p2:T ):Segment =
+  addSegment(sys, p1 , p2, sys.currentWorkplane, sys.currentGroup)
 
 proc getPoints*(sys:System; s:Segment):seq[tuple[id:IdEntity; typ:uint]] =
   let segment = sys.getEntity(s)

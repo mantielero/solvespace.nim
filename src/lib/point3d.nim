@@ -1,7 +1,7 @@
 import ../wrapper/slvs
 import types,params, system
 
-proc addPoint*[X,Y,Z:SomeNumber](sys:var System; x:X; y:Y; z:Z; group:IdGroup = 0):Point3d =
+proc addPoint*[X,Y,Z:SomeNumber](sys:var System; x:X; y:Y; z:Z; group:IdGroup):Point3d =
   var grp = group
   if grp == 0:
     grp = sys.groupNewId
@@ -13,6 +13,9 @@ proc addPoint*[X,Y,Z:SomeNumber](sys:var System; x:X; y:Y; z:Z; group:IdGroup = 
   result = sys.entityNewId.Point3d
   sys.entities &= Slvs_MakePoint3d( result.IdEntity, grp.IdGroup, xid, yid, zid ) 
   sys.entityNewId += 1  
+
+proc addPoint*[X,Y,Z:SomeNumber](sys:var System; x:X; y:Y; z:Z):Point3d =
+  addPoint(sys, x, y, z, sys.currentGroup)
 
 
 proc xid*(sys:System; p:Point3d):IdParam =

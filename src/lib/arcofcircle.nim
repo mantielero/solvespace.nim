@@ -14,18 +14,30 @@ proc addArcOfCircle( sys:var System;
   sys.entityNewId += 1
 
 
+# Point3d
 proc addArcOfCircle*( sys:var System; 
                      normal:Normal3d; center, start, `end`: Point3d; 
-                     workplane:Workplane; group:IdGroup = 0):ArcOfCircle  =
+                     workplane:Workplane; group:IdGroup):ArcOfCircle  =
   addArcOfCircle( sys, normal.IdEntity, center.IdEntity, start.IdEntity, `end`.IdEntity, 
                      workplane, group )
 
 
+proc addArcOfCircle*( sys:var System; 
+                     normal:Normal3d; center, start, `end`: Point3d):ArcOfCircle  =
+  addArcOfCircle( sys, normal, center, start, `end`,  
+                  sys.currentWorkplane, sys.currentGroup)
+
+# Point2d
 proc addArcOfCircle*( sys:var System; 
                      normal:Normal3d; center, start, `end`: Point2d; 
                      workplane:Workplane; group:IdGroup = 0):ArcOfCircle  =
   addArcOfCircle( sys, normal.IdEntity, center.IdEntity, start.IdEntity, `end`.IdEntity, 
                      workplane, group )
+
+proc addArcOfCircle*( sys:var System; 
+                     normal:Normal3d; center, start, `end`: Point2d):ArcOfCircle  =
+  addArcOfCircle( sys, normal, center, start, `end`,  
+                  sys.currentWorkplane, sys.currentGroup)
 
 #[
     sys.entity[sys.entities++] = Slvs_MakeArcOfCircle(401, g, 200, 102,

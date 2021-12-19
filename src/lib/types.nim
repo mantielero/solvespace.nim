@@ -15,6 +15,8 @@ type
     entityNewId*:IdEntity
     constraintNewId*:IdConstraint
     groupNewId*:IdGroup
+    currentGroup*:IdGroup
+    currentWorkplane*:Workplane
 
 
 

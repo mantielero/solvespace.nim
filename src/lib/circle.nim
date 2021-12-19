@@ -2,18 +2,18 @@ import ../wrapper/slvs
 import types, constants
 
 proc addCircle*( sys:var System; center:Point2d; normal:Normal3d; radius:SomeNumber; 
-                 workplane:Workplane; group:IdGroup = 0 ):Circle =
-  var grp = group
-  if grp == 0:
-    grp = sys.groupNewId
-
-  let distanceId = sys.addDistance(radius, workplane, grp)
+                 workplane:Workplane; group:IdGroup):Circle =
+  let distanceId = sys.addDistance(radius, workplane, group)
 
   result = sys.entityNewId.Circle
-  sys.entities &= Slvs_MakeCircle( result.IdEntity, grp.IdGroup, workplane.IdEntity, 
+  sys.entities &= Slvs_MakeCircle( result.IdEntity, group.IdGroup, workplane.IdEntity, 
                                    center.IdEntity, normal.IdEntity, distanceId.IdEntity)
   sys.entityNewId += 1
 
+
+proc addCircle*( sys:var System; center:Point2d; normal:Normal3d; radius:SomeNumber):Circle =
+  addCircle( sys, center, normal, radius, sys.currentWorkplane, sys.currentGroup)
+  
 
 #[
     sys.entity[sys.entities++] = Slvs_MakeCircle(402, g, 200,

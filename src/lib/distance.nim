@@ -1,15 +1,13 @@
 import ../wrapper/slvs
 import types, constants
 
-proc addDistance*(sys:var System; distance:SomeNumber; workplane:Workplane; group:IdGroup = 0 ):Distance =
-  var grp = group
-  if grp == 0:
-    grp = sys.groupNewId
-
-  let distanceId = sys.addParam(distance, grp)
+proc addDistance*(sys:var System; distance:SomeNumber; workplane:Workplane; group:IdGroup  ):Distance =
+  let distanceId = sys.addParam(distance, group)
   result = sys.entityNewId.Distance
-  sys.entities &= Slvs_MakeDistance( result.IdEntity, grp.IdGroup, 
+  sys.entities &= Slvs_MakeDistance( result.IdEntity, group.IdGroup, 
                                         workplane.IdEntity, 
                                         distanceId)
   sys.entityNewId += 1
 
+proc addDistance*(sys:var System; distance:SomeNumber):Distance =
+  addDistance(sys, distance, sys.currentWorkplane, sys.currentGroup)
