@@ -50,31 +50,31 @@ proc main =
   let circle = sys.addCircle( center, normal, 30)
 
   # The length of our line segment is 30.0 units.
-  let constraint1 = sys.constrainDistance( segment, 30)
+  let constraint1 = segment.fixDistance( 30 )
 
   # And the distance from our line segment to the origin is 10.0 units.
   let origin = wp.getOrigin  #sys.getOrigin(wp)
   
-  let constraint2 = sys.constrainDistance(origin, segment, 10)
+  let constraint2 = fixDistance(origin, segment, 10)
 
   # And the line segment is vertical.
-  let constraint3 = sys.constrainVertical(segment)
+  let constraint3 = segment.vertical
 
   # And the distance from one endpoint to the origin is 15.0 units.
-  let constraint4 = sys.constrainDistance( origin, p1, 15)
+  let constraint4 = fixDistance( origin, p1, 15)
 
 
   # And same for the other endpoint; so if you add this constraint then
   # the sketch is overconstrained and will signal an error.
-  #if true:  
-  #  let constraint7 = sys.constrainDistance(origin, p2, 18)
+  if true:  
+    let constraint7 = fixDistance(origin, p2, 18)
 
 
   # The arc and the circle have equal radius.
-  let constraint5 = sys.constrainEqualRadius(aoc1, circle)
+  let constraint5 = equalRadius(aoc1, circle)
 
   # The arc has radius 17.0 units.
-  let constraint6 = sys.constrainDiameter(aoc1, 17 * 2) 
+  let constraint6 = aoc1.radius(17) #sys.constrainDiameter(aoc1, 17 * 2) 
 
   # SOLVE
   let res = sys.solve
