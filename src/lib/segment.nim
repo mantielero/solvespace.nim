@@ -2,7 +2,8 @@ import ../wrapper/slvs
 import types, constants, system
 
 proc addSegment*[T:Point3d | Point2d](sys:var System; p1,p2:T; workplane:Workplane; group:IdGroup ):Segment =
-  result = sys.entityNewId.Segment
+  result.sys = sys
+  result.id = sys.entityNewId
   sys.entities &= Slvs_MakeLineSegment( result.IdEntity, group.IdGroup, 
                                         workplane.IdEntity, 
                                         p1.IdEntity, p2.IdEntity )

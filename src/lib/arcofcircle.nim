@@ -7,7 +7,8 @@ proc addArcOfCircle( sys:var System;
   var grp = group
   if grp == 0:
     grp = sys.groupNewId    
-  result = sys.entityNewId.ArcOfCircle
+  result.id = sys.entityNewId  #.ArcOfCircle
+  result.sys = sys
   sys.entities &= Slvs_MakeArcOfCircle( result.IdEntity, grp, 
                                         workplane.IdEntity, 
                                         normal, center, start, `end` )

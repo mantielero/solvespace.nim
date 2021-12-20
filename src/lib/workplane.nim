@@ -6,7 +6,8 @@ proc addWorkplane*[OX,OY,OZ, UX,UY,UZ,VX,VY,VZ:SomeNumber]( sys:var System;  ox:
   let origin = sys.addPoint(ox, oy, oz, group )
   let normal = sys.addNormal( ux, uy, uz, 
                               vx, vy, vz, group )  
-  result = sys.entityNewId.Workplane
+  result.id  = sys.entityNewId
+  result.sys = sys
   sys.entities &= Slvs_MakeWorkplane(result.IdEntity, group, origin.IdEntity, normal)
   sys.entityNewId += 1
 
@@ -16,8 +17,11 @@ proc addWorkplane*[OX,OY,OZ, UX,UY,UZ,VX,VY,VZ:SomeNumber]( sys:var System;  ox:
     raise newException(ValueError, "you need to `setGroup` for the system before using this function")
   addWorkplane( sys, ox, oy, oz, ux, uy, uz, vx, vy, vz, sys.currentGroup )
 
-proc getNormal*(sys:System; wp:Workplane):Normal3d =
-  sys.getEntity(wp).normal.Normal3d
+proc getNormal*(wp:Workplane):Normal3d =
+  result.sys = wp.sys
+  result.id  = wp.sys.getEntity(wp).normal
 
-proc getOrigin*(sys:System; wp:Workplane):Point3d =
-  sys.getEntity(wp).point[0].Point3d
+proc getOrigin*(wp:Workplane):Point3d =
+  #sys.getEntity(wp).point[0].Point3d
+  result.sys = wp.sys
+  result.id = wp.sys.getEntity(wp).point[0]

@@ -6,7 +6,8 @@ type
   IdConstraint* = Slvs_hConstraint
   IdGroup*      = Slvs_hGroup
 
-  System* = object
+  System* = ref SystemObj
+  SystemObj* = object
     sys*:Slvs_System
     params*:seq[Slvs_Param]
     entities*:seq[Slvs_Entity]
@@ -19,24 +20,49 @@ type
     currentWorkplane*:Workplane
 
 
+  #EntityObj = object
+  #  id*:IdEntity
+  #  sys*:System  
 
-  ArcOfCircle* = distinct IdEntity
-  Circle*      = distinct IdEntity
-  Distance*    = distinct IdEntity
-  Normal3d*    = distinct IdEntity
-  Point2d*     = distinct IdEntity
-  Point3d*     = distinct IdEntity  
-  Segment*     = distinct IdEntity
-  Workplane*   = distinct IdEntity
+  ArcOfCircle* = object#distinct EntityObj
+    id*:IdEntity
+    sys*:System    
+  Circle*      = object#distinct toIdEntity
+    id*:IdEntity
+    sys*:System  
+  Distance*    = object #distinct IdEntity
+    id*:IdEntity
+    sys*:System  
+  Normal3d*    = object #distinct IdEntity
+    id*:IdEntity
+    sys*:System    
+  #Point2d*     = distinct IdEntity
+  #Point3d*     = distinct IdEntity  
+  Point2d*     = object
+    id*:IdEntity
+    sys*:System 
+  Point3d*     = object
+    id*:IdEntity
+    sys*:System
+  Segment*     = object
+    id*:IdEntity
+    sys*:System    
+  #Segment*     = distinct IdEntity
+  Workplane*   = object #distinct IdEntity
+    id*:IdEntity
+    sys*:System    
 
   Quaternion* = object
-    id*, qw*, qx*, qy*, qz*: uint
+    id*:IdEntity
+    sys*:System 
+    #qw*, qx*, qy*, qz*: uint
 
-  EntitiesTypes* = ArcOfCircle | Circle | Distance | Normal3d | Point2d | Point3d | Quaternion | Segment | Workplane
+  EntitiesTypes* = ArcOfCircle | Circle | Distance | Normal3d | Point2d  | Point3d | Quaternion | Segment | Workplane
+
 
 
 converter toIdEntity*(val:EntitiesTypes):IdEntity =
-  val.IdEntity
+  val.id.IdEntity
 
 
 proc `$`*(p:Slvs_Param):string =

@@ -8,8 +8,12 @@ const
   SLVS_RESULT_TOO_MANY_UNKNOWNS* = 3
 
 
-const #WorkplaneEnum* = enum
-  wpFree*:Workplane = SLVS_FREE_IN_3D.Workplane
+#const #WorkplaneEnum* = enum
+#let wpFree*:Workplane 
+#wpFree.id = SLVS_FREE_IN_3D
+
+const
+  wpFree* = SLVS_FREE_IN_3D
 
 type
   Result* = enum

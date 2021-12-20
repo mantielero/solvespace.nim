@@ -15,17 +15,17 @@ import solvespace
 proc main =
   var sys = newSystem()
   sys.setGroup(1)
-  #var g:IdGroup = 1  
 
   let wp = sys.addWorkplane( 0, 0, 0, # Origin
                              1, 0, 0, 
                              0, 1, 0)
   sys.setWorkplane( wp )
+
   # Now create a second group. We'll solve group 2, while leaving group 1
   # constant; so the workplane that we've created will be locked down,
   # and the solver can't move it. 
-  #var g:IdGroup = 2
   sys.setGroup(2)
+
   # These points are represented by their coordinates (u v) within the
   # workplane, so they need only two parameters each.
   let p1 = sys.addPoint(10, 20)
@@ -35,14 +35,14 @@ proc main =
   let segment = sys.addSegment(p1, p2)
 
   # Now three more points.
-  let p3 = sys.addPoint(100, 120)
-  let p4 = sys.addPoint(120, 110)
-  let p5 = sys.addPoint(115, 115)
+  let pCenter = sys.addPoint(100, 120)
+  let pStart  = sys.addPoint(120, 110)
+  let pFinish = sys.addPoint(115, 115)
 
   # And arc, centered at point 303, starting at point 304, ending at
   # point 305.
-  let normal = sys.getNormal(wp)
-  let aoc1 = sys.addArcOfCircle(normal, p3, p4, p5)
+  let normal = wp.getNormal#sys.getNormal(wp)
+  let aoc1 = sys.addArcOfCircle(normal, pCenter, pStart, pFinish)
 
   # And a complete circle, centered at point 306 with radius equal to
   # distance 307. The normal is 102, the same as our workplane.
@@ -53,7 +53,7 @@ proc main =
   let constraint1 = sys.constrainDistance( segment, 30)
 
   # And the distance from our line segment to the origin is 10.0 units.
-  let origin = sys.getOrigin(wp)
+  let origin = wp.getOrigin  #sys.getOrigin(wp)
   
   let constraint2 = sys.constrainDistance(origin, segment, 10)
 
@@ -63,10 +63,11 @@ proc main =
   # And the distance from one endpoint to the origin is 15.0 units.
   let constraint4 = sys.constrainDistance( origin, p1, 15)
 
-  if false:  
-    # And same for the other endpoint; so if you add this constraint then
-    # the sketch is overconstrained and will signal an error.
-    let constraint7 = sys.constrainDistance(origin, p2, 18)
+
+  # And same for the other endpoint; so if you add this constraint then
+  # the sketch is overconstrained and will signal an error.
+  #if true:  
+  #  let constraint7 = sys.constrainDistance(origin, p2, 18)
 
 
   # The arc and the circle have equal radius.
@@ -86,27 +87,14 @@ proc main =
     let paramId2 = sys.getEntity(pid1).param[1]  
     sys.showEntities()
     echo "DOF: ", sys.getDOF
-
+  else:
+    echo sys.sys.faileds
+    var failed = cast[ptr UncheckedArray[IdConstraint]](sys.sys.failed)
+    for i in 0..<sys.sys.faileds:
+      echo failed[i]
+    if res == rInconsistent:
+      echo "system inconsistent"
+    else:
+      echo "system nonconvergent"
 main()
 
-
-
-#[
-
-
-    if(sys.result == SLVS_RESULT_OKAY) {
-
-    } else {
-        int i;
-        printf("solve failed: problematic constraints are:");
-        for(i = 0; i < sys.faileds; i++) {
-            printf(" %d", sys.failed[i]);
-        }
-        printf("\n");
-        if(sys.result == SLVS_RESULT_INCONSISTENT) {
-            printf("system inconsistent\n");
-        } else {
-            printf("system nonconvergent\n");
-        }
-    }
-]#

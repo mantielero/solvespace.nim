@@ -5,7 +5,8 @@ proc addCircle*( sys:var System; center:Point2d; normal:Normal3d; radius:SomeNum
                  workplane:Workplane; group:IdGroup):Circle =
   let distanceId = sys.addDistance(radius, workplane, group)
 
-  result = sys.entityNewId.Circle
+  result.id  = sys.entityNewId
+  result.sys = sys
   sys.entities &= Slvs_MakeCircle( result.IdEntity, group.IdGroup, workplane.IdEntity, 
                                    center.IdEntity, normal.IdEntity, distanceId.IdEntity)
   sys.entityNewId += 1

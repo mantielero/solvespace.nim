@@ -2,6 +2,7 @@ import ../wrapper/slvs
 import types, constants
 
 proc newSystem*():System =
+  result = new System 
   result.paramNewId      = 1
   result.entityNewId     = 1
   result.constraintNewId = 1
@@ -11,6 +12,10 @@ proc newSystem*():System =
   result.sys.dragged[2]  = 0 
   result.sys.dragged[3]  = 0 
   result.currentGroup    = 0
+
+  var wpFree:Workplane
+  wpFree.id = SLVS_FREE_IN_3D
+  wpFree.sys = result
   result.currentWorkplane = wpFree
   result.sys.calculateFaileds = 1 # By default, report which constraints caused the problem.
 
