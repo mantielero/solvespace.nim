@@ -16,3 +16,13 @@ https://github.com/solvespace/solvespace -
 https://libera.irclog.whitequark.org/solvespace
 
 https://github.com/KmolYuan/python-solvespace/issues/4
+
+# License
+The SolveSpace library is distributed as GPLv3 as stated [here](https://solvespace.com/library.pl):
+
+> SolveSpace is distributed under the GPLv3, which permits most use in free software but generally forbids linking the library with proprietary software. For commercial support and licensing, please contact us.
+
+
+My code is released as MIT License, but you need to fulfill SolveSpace own license requirements.
+
+
