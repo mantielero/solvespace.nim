@@ -9,8 +9,10 @@ const libName = "slvs"
 import wrapper/slvs
 export slvs
 
-import lib/[constants, types, system, params, point3d, segment, constraints, quaternion, drag, workplane, normal, solve, point2d, arcofcircle]
-export constants, types, system, params, point3d, segment, constraints, quaternion, drag, workplane, normal, solve, point2d, arcofcircle
+import lib/[constants, types, system, params, point3d, segment, cubic]
+import lib/[constraints, quaternion, drag, workplane, normal2d, normal3d, solve, point2d, arcofcircle]
+export constants, types, system, params, point3d, segment, cubic
+export constraints, quaternion, drag, workplane, normal2d, normal3d, solve, point2d, arcofcircle
 
 
 import lib/[distance, circle, showing]

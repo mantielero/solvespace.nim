@@ -1,5 +1,18 @@
 import ../wrapper/slvs
 
+#[
+  SLVS_E_POINT_IN_3D* = 50000   # DONE
+  SLVS_E_POINT_IN_2D* = 50001   # DONE
+  SLVS_E_NORMAL_IN_3D* = 60000  # DONE
+  SLVS_E_NORMAL_IN_2D* = 60001  # DONE
+  SLVS_E_DISTANCE* = 70000      # DONE
+  SLVS_E_WORKPLANE* = 80000     # DONE
+  SLVS_E_LINE_SEGMENT* = 80001  # DONE
+  SLVS_E_CUBIC* = 80002         # CUBIC
+  SLVS_E_CIRCLE* = 80003        # DONE
+  SLVS_E_ARC_OF_CIRCLE* = 80004 # DONE
+]#
+
 type
   IdParam*      = Slvs_hParam
   IdEntity*     = Slvs_hEntity
@@ -30,12 +43,18 @@ type
   Circle*      = object#distinct toIdEntity
     id*:IdEntity
     sys*:System  
+  Cubic*      = object#distinct toIdEntity
+    id*:IdEntity
+    sys*:System      
   Distance*    = object #distinct IdEntity
     id*:IdEntity
     sys*:System  
   Normal3d*    = object #distinct IdEntity
     id*:IdEntity
-    sys*:System    
+    sys*:System   
+  Normal2d*    = object #distinct IdEntity
+    id*:IdEntity
+    sys*:System        
   #Point2d*     = distinct IdEntity
   #Point3d*     = distinct IdEntity  
   Point2d*     = object
@@ -57,7 +76,7 @@ type
     sys*:System 
     #qw*, qx*, qy*, qz*: uint
 
-  EntitiesTypes* = ArcOfCircle | Circle | Distance | Normal3d | Point2d  | Point3d | Quaternion | Segment | Workplane
+  EntitiesTypes* = ArcOfCircle | Circle | Cubic | Distance | Normal2d | Normal3d | Point2d  | Point3d | Quaternion | Segment | Workplane
 
 
 

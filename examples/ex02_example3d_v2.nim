@@ -7,7 +7,7 @@ proc main =
   var sys = newSystem()
   
   sys.setGroup( 1 )                         # This will contain a single group, which will arbitrarily number 1.
-  sys.setWorkplane( wpFree )
+  #sys.setWorkplane( wpFree )  # This is already done by default
   let p1 = sys.addPoint(10,10,10)   # A point, initially at (x y z) = (10 10 10)
   let p2 = sys.addPoint(20,20,20)   # and a second point at (20 20 20)
 
@@ -15,7 +15,7 @@ proc main =
 
   # The distance between the points should be 30.0 units.
   #let constraint = sys.newConstraint(group1, wpFree, cDistancePtPt, 30.0, p1.id, p2.id)
-  let constraint = sys.constrainDistance(p1, p2, 30)
+  let constraint = distance(p1, p2, 30)
                       
   # Let's tell the solver to keep the second point as close to constant
   # as possible, instead moving the first point.

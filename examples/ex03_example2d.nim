@@ -50,24 +50,23 @@ proc main =
   let circle = sys.addCircle( center, normal, 30)
 
   # The length of our line segment is 30.0 units.
-  segment.fixDistance( 30 )
+  segment.length( 30 )
 
   # And the distance from our line segment to the origin is 10.0 units.
   let origin = wp.getOrigin  #sys.getOrigin(wp)
   
-  fixDistance(origin, segment, 10)
+  distance(origin, segment, 10)
 
   # And the line segment is vertical.
   segment.vertical
 
   # And the distance from one endpoint to the origin is 15.0 units.
-  fixDistance( origin, p1, 15)
-
+  distance( origin, p1, 15)
 
   # And same for the other endpoint; so if you add this constraint then
   # the sketch is overconstrained and will signal an error.
   if false:  
-    fixDistance(origin, p2, 18)
+    distance(origin, p2, 18)
 
 
   # The arc and the circle have equal radius.
@@ -96,5 +95,6 @@ proc main =
       echo "system inconsistent"
     else:
       echo "system nonconvergent"
+
 main()
 

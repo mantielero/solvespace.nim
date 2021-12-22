@@ -1,6 +1,6 @@
 import strformat
 import ../wrapper/slvs
-import types, point3d, point2d, system, normal
+import types, point3d, point2d, system, normal3d, normal2d
 
 
 proc showPoint(sys:System; pid:IdEntity):string =
