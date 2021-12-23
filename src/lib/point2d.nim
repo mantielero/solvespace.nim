@@ -17,16 +17,18 @@ proc addPoint*[X,Y:SomeNumber](sys:var System; x:X; y:Y; workplane:Workplane; gr
 proc addPoint*[X,Y:SomeNumber](sys:var System; x:X; y:Y):Point2d =
   addPoint(sys, x, y, sys.currentWorkplane, sys.currentGroup)
 
+#[ 
 proc xid*(sys:System; p:Point2d):IdParam =
   sys.getEntity(p).param[0]
 
 proc yid*(sys:System; p:Point2d):IdParam =
   sys.getEntity(p).param[1]  
 
+
 proc coord*(sys:System; p:Point2d):tuple[x,y:float] =
   let xid = sys.xid(p)
   let yid = sys.yid(p)  
-  (sys.params[xid-1].val, sys.params[yid-1].val)
+  (sys.params[xid-1].val, sys.params[yid-1].val) ]#
 
 
 
@@ -43,6 +45,13 @@ proc coord*(p:Point2d):tuple[x,y:float] =
   let yid = p.yid
   (p.sys.params[xid-1].val, p.sys.params[yid-1].val)
 
+proc x*(p:Point2d):float =
+  let xid = p.xid
+  p.sys.params[xid-1].val
+
+proc y*(p:Point2d):float =
+  let yid = p.yid
+  p.sys.params[yid-1].val
 
 proc toPoint2d*(sys:System; id:IdEntity):Point2d =
   result.sys = sys

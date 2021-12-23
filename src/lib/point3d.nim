@@ -46,6 +46,18 @@ proc yid*(p:Point3d):IdParam =
 proc zid*(p:Point3d):IdParam =
   p.sys.getEntity(p.id).param[2]
 
+proc x*(p:Point3d):float =
+  let xid = p.xid
+  p.sys.params[xid-1].val
+
+proc y*(p:Point3d):float =
+  let yid = p.yid
+  p.sys.params[yid-1].val
+
+proc z*(p:Point3d):float =
+  let zid = p.zid
+  p.sys.params[zid-1].val
+
 proc coord*(p:Point3d):tuple[x,y,z:float] =
   let xid = p.xid
   let yid = p.yid
