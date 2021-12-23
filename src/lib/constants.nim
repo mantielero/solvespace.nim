@@ -54,6 +54,6 @@ type
     cCubicLineTangent = SLVS_C_CUBIC_LINE_TANGENT, # DONE
     cEqualRadius      = SLVS_C_EQUAL_RADIUS,       # DONE
     cProjPtDistance   = SLVS_C_PROJ_PT_DISTANCE,   # DONE
-    cWhereDragged     = SLVS_C_WHERE_DRAGGED,
-    cCurveCurveTangent = SLVS_C_CURVE_CURVE_TANGENT,
+    cWhereDragged     = SLVS_C_WHERE_DRAGGED,      # DONE
+    cCurveCurveTangent = SLVS_C_CURVE_CURVE_TANGENT, # DONE
     cLengthDifference  = SLVS_C_LENGTH_DIFFERENCE  # DONE
