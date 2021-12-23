@@ -19,7 +19,7 @@ proc main =
                       
   # Let's tell the solver to keep the second point as close to constant
   # as possible, instead moving the first point.
-  sys.drag(p2)
+  p2.drag
   var res = sys.solve
 
   if res == rOK:

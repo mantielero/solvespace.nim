@@ -31,3 +31,7 @@ Just run:
 ```bash
 $ testament p "tests/**/test*.nim"
 ```
+
+# TODO
+- [ ] To improve `test_distance.nim`
+- [ ] To improve `test_length.nim`

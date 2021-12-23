@@ -11,10 +11,14 @@ proc newNormal*(sys:var System; qw, qx, qy, qz:Slvs_hParam; group:IdGroup ):Norm
 
 proc addNormal*[UX,UY,UZ,VX,VY,VZ:SomeNumber](sys:var System; 
        ux:UX; uy:UY; uz:UZ; 
-       vx:VX;vy:VY;vz:VZ; group:IdGroup ):Normal3d = #:Segment
-  var qIds = sys.addQuaternion( ux, uy, uz, vx, vy, vz, group)
-
-  result = newNormal(sys, group, qIds[0], qIds[1], qIds[2], qIds[3])
+       vx:VX;vy:VY;vz:VZ ):Normal3d = #:Segment
+  var qIds = sys.addQuaternion( ux, uy, uz, vx, vy, vz)
+  #echo ">>>", qIds
+  result.sys = sys
+  result.id  = sys.entityNewId
+  sys.entities &= Slvs_MakeNormal3d( result.IdEntity, sys.currentGroup, 
+                                     qIds[0], qIds[1], qIds[2], qIds[3])
+  sys.entityNewId += 1
 
 proc toNormal3d*(sys:System; id:IdEntity):Normal3d =
   result.sys = sys

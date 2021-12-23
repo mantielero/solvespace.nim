@@ -27,7 +27,7 @@ proc lengthRatio*[N:SomeNumber](line1, line2:Segment; ratio:N):Slvs_Constraint {
   var sys = line1.sys
   newConstraint( sys, cLengthRatio, ratio,
                  #point, 0.Point3d, line, 0.IdEntity, workplane, group )
-                 0.id, 0.IdEntity, line1.id, line2.id, sys.currentWorkplane, sys.currentGroup )
+                 0.IdEntity, 0.IdEntity, line1.id, line2.id, sys.currentWorkplane, sys.currentGroup )
 
 
 # cLengthDifference
@@ -41,7 +41,7 @@ proc lengthDiff*[N:SomeNumber](line1, line2:Segment; diff:N):Slvs_Constraint {.d
   var sys = line1.sys
   newConstraint( sys, cLengthDifference, diff,
                  #point, 0.Point3d, line, 0.IdEntity, workplane, group )
-                 0.id, 0.IdEntity, line1.id, line2.id, sys.currentWorkplane, sys.currentGroup )
+                 0.IdEntity, 0.IdEntity, line1.id, line2.id, sys.currentWorkplane, sys.currentGroup )
 
     
 # cEqLenPtLine

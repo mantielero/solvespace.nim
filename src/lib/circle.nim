@@ -1,7 +1,7 @@
 import ../wrapper/slvs
-import types, constants
+import types, constants, system
 
-proc addCircle*( sys:var System; center:Point2d; normal:Normal3d; radius:SomeNumber; 
+proc addCircle*[P:Point3d | Point2d]( sys:var System; center:P; normal:Normal3d; radius:SomeNumber; 
                  workplane:Workplane; group:IdGroup):Circle =
   let distanceId = sys.addDistance(radius, workplane, group)
 
@@ -12,16 +12,16 @@ proc addCircle*( sys:var System; center:Point2d; normal:Normal3d; radius:SomeNum
   sys.entityNewId += 1
 
 
-proc addCircle*( sys:var System; center:Point2d; normal:Normal3d; radius:SomeNumber):Circle =
-  addCircle( sys, center, normal, radius, sys.currentWorkplane, sys.currentGroup)
-  
+proc addCircle*[P:Point3d | Point2d]( sys:var System; center:P; normal:Normal3d; radius:SomeNumber):Circle =
+  let distanceId = sys.addDistance( radius )
+  result.id  = sys.entityNewId
+  result.sys = sys
+  sys.entities &= Slvs_MakeCircle( result.IdEntity, sys.currentGroup, sys.currentWorkplane, 
+                                   center.IdEntity, normal.IdEntity, distanceId.IdEntity)
+  sys.entityNewId += 1
 
-#[
-    sys.entity[sys.entities++] = Slvs_MakeCircle(402, g, 200,
-                                    306, 102, 307);
 
-
-proc Slvs_MakeCircle*(h: Slvs_hEntity; group: Slvs_hGroup; wrkpl: Slvs_hEntity;
-                      center: Slvs_hEntity; normal: Slvs_hEntity;
-                      radius: Slvs_hEntity): Slvs_Entity 
-]#
+proc radius*(c:Circle):float =
+  let idDistance = c.sys.getEntity(c.id).distance
+  let idParam = c.sys.getEntity(idDistance).param[0]
+  c.sys.getParam(idParam).val

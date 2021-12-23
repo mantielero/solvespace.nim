@@ -73,18 +73,11 @@ proc distance*[N:SomeNumber; P:Point3d | Point2d;T:Segment](point:P; line:T; dis
     vs. below the line.
 
     - If the constraint applies in 3d, then valA must always be positive.
+
+
   ]##
   distance(point, line, distance, point.sys.currentWorkplane, point.sys.currentGroup ) 
 
-
-#[
-()  ignore the wrkpl member are marked with no star.
-
-SLVS_C_PROJ_PT_DISTANCE
-
-    The distance between points ptA and ptB, as projected along the line
-    or normal entityA, is equal to valA. This is a signed distance.
-]#
 
 # cProjPtDistance: distance between two points projected on an entity
 proc projectedDistance*[N:SomeNumber; P1,P2:Point3d | Point2d](p1:P1; p2:P2; entity:IdEntity; distance:N):Slvs_Constraint {.discardable.} =
@@ -102,8 +95,9 @@ proc projectedDistance*[N:SomeNumber; P1,P2:Point3d | Point2d](p1:P1; p2:P2; ent
 # cDistancePtPlane: 
 proc distance*[N:SomeNumber; P:Point3d | Point2d](p:P; wrkpl:Workplane; distance:N):Slvs_Constraint {.discardable.} =
   ##[
-    The distance between points ptA and ptB, as projected along the line
-    or normal entityA, is equal to valA. This is a signed distance.
+    The distance from point ptA to workplane entityA is equal to
+    valA. This is a signed distance; positive versus negative valA
+    correspond to a point that is above vs. below the plane.
 
     Current Workplane is ignored 
   ]##

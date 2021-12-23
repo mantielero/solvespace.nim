@@ -9,7 +9,15 @@ proc equalRadius*[T1,T2:Circle | ArcOfCircle](circle1:T1; circle2:T2;
   newConstraint( sys, cEqualRadius, 0.0, 0.IdEntity, 0.IdEntity, circle1.IdEntity, circle2.IdEntity, workplane, group )        
 
 proc equalRadius*[T1,T2:Circle | ArcOfCircle](circle1:T1; circle2:T2):Slvs_Constraint {.discardable.} =
-  equalRadius(circle1, circle2, circle1.sys.currentWorkplane, circle1.sys.currentGroup) 
+  ##[
+  The circles or arcs entityA and entityB have equal radius.
+
+  Ignore the workplane setting.
+  ]##
+  var sys = circle1.sys
+  newConstraint( sys, cEqualRadius, 0.0, 0.IdEntity, 0.IdEntity, circle1.id, circle2.id, 
+                 sys.currentWorkplane, sys.currentGroup )   
+  #equalRadius(circle1, circle2, circle1.sys.currentWorkplane, circle1.sys.currentGroup) 
 
 
 proc diameter*[T:Circle | ArcOfCircle, N:SomeNumber](circle:T; diameter:N; 

@@ -13,4 +13,4 @@ proc midpoint*[P:Point3d | Point2d](point:P; line:Segment):Slvs_Constraint {.dis
   ]##
   var sys = point.sys
   newConstraint( sys, cAtMidpoint, 0.0,
-                 point.id, 0.IdEntity, line.id, 0.id, sys.currentWorkplane, sys.currentGroup )
+                 point.id, 0.IdEntity, line.id, 0.IdEntity, sys.currentWorkplane, sys.currentGroup )

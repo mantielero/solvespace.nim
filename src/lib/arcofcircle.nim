@@ -1,5 +1,5 @@
 import ../wrapper/slvs
-import types, constants
+import types, constants, system, tools
 
 proc addArcOfCircle( sys:var System; 
                      normal, center, start, `end`:IdEntity; 
@@ -50,3 +50,12 @@ proc Slvs_MakeArcOfCircle*(h: Slvs_hEntity; group: Slvs_hGroup;
                            center: Slvs_hEntity; start: Slvs_hEntity;
                            `end`: Slvs_hEntity): Slvs_Entity                                   
 ]#
+
+proc radius*(aoc:ArcOfCircle):float =
+  let points = aoc.sys.getEntity(aoc.id).point
+  var p1,p2:Point3d
+  p1.id = points[0]
+  p1.sys = aoc.sys
+  p2.id = points[1]
+  p2.sys = aoc.sys  
+  measureDistance(p1, p2)
