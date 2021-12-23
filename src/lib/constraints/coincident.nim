@@ -25,7 +25,7 @@ proc coincident*[P1,P2:Point3d | Point2d](p1:P1; p2:P2):Slvs_Constraint {.discar
 
     May be used in 3d or projected into a workplane.
   ]##
-  coincident( p1.id, p2.id, p1.sys.currentWorkplane, p1.sys.currentGroup )
+  coincident( p1, p2, p1.sys.currentWorkplane, p1.sys.currentGroup )
 
 
 # cPtInPlane
@@ -37,8 +37,8 @@ proc coincident*[P:Point3d | Point2d](p:P; wrkpl:Workplane):Slvs_Constraint {.di
     Ignore the current Workplane member
   ]##
   var sys = p.sys
-  newConstraint( sys, cCoincidentPoints, 0.0,
-                 p.id, 0.IdEntity, wrkpl.id, 0.IdEntity, p.sys.currentGroup, p.sys.currentGroup )
+  newConstraint( sys, cPtInPlane, 0.0,
+                 p.id, 0.IdEntity, wrkpl.id, 0.IdEntity, p.sys.currentWorkplane, p.sys.currentGroup )
 
 
 # cPtOnLine
@@ -53,5 +53,5 @@ proc coincident*[P:Point3d | Point2d](p:P; line:Segment):Slvs_Constraint {.disca
   ]##
   var sys = p.sys
   newConstraint( sys, cPtOnLine, 0.0,
-                 p.id, 0.IdEntity, line.id, 0.IdEntity, p.sys.currentGroup, p.sys.currentGroup )
+                 p.id, 0.IdEntity, line.id, 0.IdEntity, p.sys.currentWorkplane, p.sys.currentGroup )
 
