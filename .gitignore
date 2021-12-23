@@ -2,10 +2,9 @@ src/.cache/
 nimcache/
 outputGotten.txt
 
-tests/*
-!tests/config.nims
-!tests/test*.nim
-!tests/creation/test*.nim
-!tests/constraints/test*.nim
+
+tests/creation/*
+tests/constraints/*
+!tests/**/test*.nim
 
 testresults/
