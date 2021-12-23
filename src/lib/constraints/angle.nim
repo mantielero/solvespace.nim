@@ -16,9 +16,18 @@ proc equalAngle*(line1, line2, line3, line4:Segment;other:bool = false):Slvs_Con
   May be used in 3d or projected into a workplane
   ]##
   var sys = line1.sys
-  result = newConstraint( sys, cEqualAngle, 0.0,
-                 line1.id, line2.id, line3.id, line4.id, sys.currentWorkplane, sys.currentGroup )
-  result.other = other.cint
+#[   result = newConstraint( sys, cEqualAngle, 0.0,
+                 line1.id, line2.id, line3.id, line4.id, sys.currentWorkplane, sys.currentGroup ) ]#
+  result = newConstraint( sys, cEqualAngle, line1, line2, line3, line4, other )                 
+  #result.entityA = line1.id
+  #result.entityB = line2.id
+  #result.entityC = line3.id
+  #result.entityD = line4.id
+  #echo result
+  #for i in sys.constraints:
+  #  echo i
+
+  #result.other = other.cint
 
 # cAngle
 # ------
