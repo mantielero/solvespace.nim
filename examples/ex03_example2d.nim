@@ -17,8 +17,8 @@ proc main =
   sys.setGroup(1)
 
   let wp = sys.addWorkplane( 0, 0, 0, # Origin
-                             1, 0, 0, 
-                             0, 1, 0)
+                             1, 0, 0, # u
+                             0, 1, 0) # v
   sys.setWorkplane( wp )
 
   # Now create a second group. We'll solve group 2, while leaving group 1
@@ -41,7 +41,7 @@ proc main =
 
   # And arc, centered at point 303, starting at point 304, ending at
   # point 305.
-  let normal = wp.getNormal#sys.getNormal(wp)
+  let normal = wp.getNormal
   let aoc1 = sys.addArcOfCircle(normal, pCenter, pStart, pFinish)
 
   # And a complete circle, centered at point 306 with radius equal to
