@@ -1,11 +1,11 @@
 import ../../wrapper/slvs
-import ../types, ../constants,
+import ../types, ../constants
 import general
 
 
 # cEqualAngle
 # -----------------
-proc equalAngle*(line1, line2, line3, line4:Segment):Slvs_Constraint {.discardable.} = 
+proc equalAngle*(line1, line2, line3, line4:Segment;other:bool = false):Slvs_Constraint {.discardable.} = 
   ##[
   The angle between lines entityA and entityB is equal to the angle
     between lines entityC and entityD.
@@ -15,13 +15,14 @@ proc equalAngle*(line1, line2, line3, line4:Segment):Slvs_Constraint {.discardab
 
   May be used in 3d or projected into a workplane
   ]##
-  var sys = point.sys
-  newConstraint( sys, cEqualAngle, 0.0,
+  var sys = line1.sys
+  result = newConstraint( sys, cEqualAngle, 0.0,
                  line1.id, line2.id, line3.id, line4.id, sys.currentWorkplane, sys.currentGroup )
+  result.other = other.cint
 
 # cAngle
 # ------
-proc angle*[N:SomeNumber](line1, line2:Segment; val:N):Slvs_Constraint {.discardable.} = 
+proc angle*[N:SomeNumber](line1, line2:Segment; val:N; other:bool = false):Slvs_Constraint {.discardable.} = 
   ##[
     The angle between lines entityA and entityB is equal to valA, where
     valA is specified in degrees. This constraint equation is written
@@ -39,9 +40,10 @@ proc angle*[N:SomeNumber](line1, line2:Segment; val:N):Slvs_Constraint {.discard
 
   May be used in 3d or projected into a workplane
   ]##
-  var sys = point.sys
-  newConstraint( sys, cAngle, val,
+  var sys = line1.sys
+  result = newConstraint( sys, cAngle, val,
                  0.IdEntity, 0.IdEntity, line1.id, line2.id, sys.currentWorkplane, sys.currentGroup )
+  result.other = other.cint
 
 
 # cParallel
@@ -55,7 +57,7 @@ proc parallel*(line1, line2:Segment):Slvs_Constraint {.discardable.} =
 
   May be used in 3d or projected into a workplane
   ]##
-  var sys = point.sys
+  var sys = line1.sys
   newConstraint( sys, cParallel, 0.0,
                  0.IdEntity, 0.IdEntity, line1.id, line2.id, sys.currentWorkplane, sys.currentGroup )
 
@@ -67,6 +69,6 @@ proc perpendicular*(line1, line2:Segment):Slvs_Constraint {.discardable.} =
 
   May be used in 3d or projected into a workplane
   ]##
-  var sys = point.sys
+  var sys = line1.sys
   newConstraint( sys, cPerpendicular, 0.0,
                  0.IdEntity, 0.IdEntity, line1.id, line2.id, sys.currentWorkplane, sys.currentGroup )
