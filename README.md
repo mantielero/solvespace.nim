@@ -29,5 +29,5 @@ My code is released as MIT License, but you need to fulfill SolveSpace own licen
 # Testing
 Just run:
 ```bash
-$ testament p tests/test*.nim
+$ testament p "tests/**/test*.nim"
 ```
