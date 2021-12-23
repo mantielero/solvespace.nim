@@ -5,3 +5,5 @@ outputGotten.txt
 tests/*
 !tests/config.nims
 !tests/test*.nim
+
+testresults/
