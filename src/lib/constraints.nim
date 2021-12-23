@@ -16,11 +16,11 @@ the wrkpl member are marked with no star.
 
 ]#
 
-import constraints/[general, coincident, diameter, distance, dragged]
+import constraints/[general, angle, coincident, diameter, distance, dragged]
 import constraints/[horizontal, length, midpoint, on, orientation]
 import constraints/[symmetric, tangent, vertical]
 
-export general, coincident, diameter, distance, dragged
+export general, angle, coincident, diameter, distance, dragged
 export horizontal, length, midpoint, on, orientation
 export symmetric, tangent, vertical
 
