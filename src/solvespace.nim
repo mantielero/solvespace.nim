@@ -3,7 +3,7 @@ const libName = "slvs"
 {.passL: "-L" &  libPath.}
 {.passL: "-Wl,-rpath," &  libPath.}
 {.passL: "-l" &  libName.}
-
+{.experimental: "unicodeOperators".} 
 
 import std/math
 
