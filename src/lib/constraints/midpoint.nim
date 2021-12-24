@@ -1,5 +1,5 @@
 import ../../wrapper/slvs
-import ../types, ../constants, ../point2d, ../point3d
+import ../types, ../constants#, ../point2d, ../point3d
 import general
 
 
