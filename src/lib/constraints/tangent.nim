@@ -16,8 +16,8 @@ proc tangent*(arc:ArcOfCircle; line:Segment; other:bool = false):Slvs_Constraint
   ]##
   var sys = line.sys
   result = newConstraint( sys, cAngle, 0.0,
-                 0.IdEntity, 0.IdEntity, line.id, arc.id, sys.currentWorkplane, sys.currentGroup )
-  result.other = other.cint
+                 0.IdEntity, 0.IdEntity, line.id, arc.id, sys.currentWorkplane, sys.currentGroup, other )
+  #result.other = other.cint
 
 
 # cCubicLineTangent
