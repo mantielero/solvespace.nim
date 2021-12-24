@@ -46,18 +46,16 @@ proc main =
     p1.dragged # Fix the segment
     p2.dragged # Fix the segment
     let s  = sys.addSegment(p1,p2)
-    #s.length( 200)
-    #s.vertical
-
+ 
     let p3 = sys.addPoint(0, 200, 0)
-    distance(p3, s, 400)
+    distance(p3, s, 400)     # Forcing the distance between point and line to 400
 
     let res = sys.solve
-    assert res == rOK 
-    assert ((200.0-p3.x)^2 + (200.0 - p3.y)^2)  ~= 400.0^2
+    assert res == rOK
+    assert measureDistance(p3, s)  ~= 400.0
 
   # Distance between point and workplane
-#[   block:
+  block:
     sys.setGroup(4)
     let wp = sys.addWorkplane( 0, 0, 100, # Origin
                                1, 0, 0, # u
@@ -68,14 +66,14 @@ proc main =
 
     distance(p, wp, 400)
 
-    p.sys.sys.dragged[0] = p.xid
-    p.sys.sys.dragged[1] = p.yid    
+    #p.sys.sys.dragged[0] = p.xid
+    #p.sys.sys.dragged[1] = p.yid    
     #echo wp.origin.coord
     let res = sys.solve
     echo sys.getDOF
     if res != rOK:
       echo "Issue: res=", res
     echo res
-    assert res == rOK  ]#
+    assert res == rOK  
 
 main()
