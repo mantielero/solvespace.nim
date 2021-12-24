@@ -1,5 +1,5 @@
 import ../../wrapper/slvs
-import ../types, ../constants, ../point2d, ../point3d
+import ../types, ../constants, ../point2d, ../point3d, ../segment
 import general
 
 # cDistancePtPt: distance between points
@@ -30,7 +30,7 @@ proc length*[N:SomeNumber](s:Segment; distance:N;
     unsigned distance, so valA must always be positive.
     May be used in 3d or projected into a workplane.
   ]##          
-  let points = s.sys.getPoints(s) 
+  let points = s.getPoints 
   if points[0].typ == SLVS_E_POINT_IN_3D:
     #[     let p1 = points[0].id.Point3d
     let p2 = points[1].id.Point3d ]#
