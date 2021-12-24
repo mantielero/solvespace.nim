@@ -35,3 +35,7 @@ $ testament p "tests/**/test*.nim"
 # TODO
 - [ ] To improve `test_distance.nim`
 - [ ] To improve `test_length.nim`
+- [ ] To improve `test_on.nim`: it doesn't do what I though it would do
+- [ ] `test_orientation.nim`: requires vector product
+- [ ] To improve `test_symmetric.nim`
+- [ ] To improve `test_tangent.nim`
