@@ -5,6 +5,7 @@ outputGotten.txt
 
 tests/creation/*
 tests/constraints/*
+tests/other/*
 !tests/**/test*.nim
 
 testresults/
