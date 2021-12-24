@@ -1,5 +1,5 @@
 import ../wrapper/slvs
-import types, system
+import types, system, quaternion
 
 proc newNormal*(sys:var System; qw, qx, qy, qz:Slvs_hParam; group:IdGroup ):Normal3d  = #:Segment 
   result.sys = sys
@@ -24,7 +24,7 @@ proc toNormal3d*(sys:System; id:IdEntity):Normal3d =
   result.sys = sys
   result.id = id
 
-
+#[ 
 proc qwid*(sys:System; n:Normal3d):IdParam =
   sys.getEntity(n).param[0]
 
@@ -37,12 +37,12 @@ proc qyid*(sys:System; n:Normal3d):IdParam =
 proc qzid*(sys:System; n:Normal3d):IdParam =
   sys.getEntity(n).param[3]
 
-proc getQuaternion*(sys:System; n:Normal3d):tuple[qw,qx,qy,qz:float] =
-  let qwid = sys.qwid(n)
-  let qxid = sys.qxid(n)
-  let qyid = sys.qyid(n)  
-  let qzid = sys.qzid(n)   
-  (sys.params[qwid-1].val,sys.params[qxid-1].val, sys.params[qyid-1].val, sys.params[qzid-1].val)
+proc getQuaternion*(n:Normal3d):tuple[qw,qx,qy,qz:float] =
+  let qwid = n.sys.qwid(n)
+  let qxid = n.sys.qxid(n)
+  let qyid = n.sys.qyid(n)  
+  let qzid = n.sys.qzid(n)   
+  (sys.params[qwid-1].val,sys.params[qxid-1].val, sys.params[qyid-1].val, sys.params[qzid-1].val) ]#
 
 
 
@@ -60,9 +60,17 @@ proc qyid*(n:Normal3d):IdParam =
 proc qzid*(n:Normal3d):IdParam =
   n.sys.getEntity(n.id).param[3]
 
+proc getQuaternionIds*(n:Normal3d):tuple[qw,qx,qy,qz:IdParam] =
+  (n.qwid, n.qxid, n.qyid, n.qzid)
+
 proc getQuaternion*(n:Normal3d):tuple[qw,qx,qy,qz:float] =
   let qwid = n.qwid
   let qxid = n.qxid
   let qyid = n.qyid  
   let qzid = n.qzid  
   (n.sys.params[qwid-1].val, n.sys.params[qxid-1].val, n.sys.params[qyid-1].val, n.sys.params[qzid-1].val)
+
+proc normal*(n:Normal3d):tuple[x,y,z:float] =
+  let q = n.getQuaternion
+  #normal( n.sys, q)
+  q.normal
