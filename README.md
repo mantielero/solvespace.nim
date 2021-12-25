@@ -36,7 +36,20 @@ $ testament p "tests/**/test*.nim"
 # TODO
 - [ ] To improve `test_distance.nim`
 - [ ] To improve `test_length.nim`
+  - [ ] Equal distance from a point to two different segments (group 4). Solvespace bug?
+  - [ ] Equal length between segment and arc of circle not working (group 5). Solvespace bug?
 - [ ] To improve `test_on.nim`: it doesn't do what I though it would do
+  - [ ] Point on cylinder doesn't seem to be working (group 1). Solvespace bug?
 - [ ] `test_orientation.nim`: requires vector product
-- [ ] To improve `test_symmetric.nim`
+  - [ ] It looks like a bug in SolveSpace: 
+      ```bash
+File ./src/constrainteq.cpp, line 215, function ModifyToSatisfy:
+Assertion failed: l.n == 1.
+Message: Expected constraint to generate a single equation.
+      ```
+- [-] To improve `test_symmetric.nim`
+  - [X] NOTE: it looks like the documentation is wrong. I think it is symmetric horizontally/vertically not regarding the horizontal/vertical axis as stated in the documentation.
+  - [ ] Symmetric regarding a line doesn't seem to be working
 - [ ] To improve `test_tangent.nim`
+  - [ ] The tangent between segment - arc of circle doesn't seem to work
+  
