@@ -1,3 +1,4 @@
+import math
 import ../wrapper/slvs
 import types, constants, system, tools
 
@@ -53,9 +54,27 @@ proc Slvs_MakeArcOfCircle*(h: Slvs_hEntity; group: Slvs_hGroup;
 
 proc radius*(aoc:ArcOfCircle):float =
   let points = aoc.sys.getEntity(aoc.id).point
+  # TODO: missing the 2d case
   var p1,p2:Point3d
   p1.id = points[0]
   p1.sys = aoc.sys
   p2.id = points[1]
   p2.sys = aoc.sys  
   measureDistance(p1, p2)
+
+proc length*(aoc:ArcOfCircle):float =
+  let points = aoc.sys.getEntity(aoc.id).point
+  var center,start,finish:Point3d
+  center.id = points[0]
+  center.sys = aoc.sys
+  start.id = points[1]
+  start.sys = aoc.sys 
+  finish.id = points[2]
+  finish.sys = aoc.sys     
+  let ca = vector(center, start)
+  let cb = vector(center, finish)
+  let dotproduct = ca * cb
+  let radius = measureDistance(center,start)
+  let ratio = dotproduct / (radius^2)
+  let angle = arccos(ratio)
+  return angle * radius
