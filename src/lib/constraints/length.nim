@@ -46,16 +46,15 @@ proc lengthDiff*[N:SomeNumber](line1, line2:Segment; diff:N):Slvs_Constraint {.d
     
 # cEqLenPtLine
 # ------------
-proc lengthEqualDistance*[P:Point3d | Point2d](line1:Segment; point:P; line2:Segment):Slvs_Constraint {.discardable.} = 
+proc equalDistance*[P:Point3d | Point2d](point:P; line1:Segment;  line2:Segment):Slvs_Constraint {.discardable.} = 
   ##[
-  The length of the line entityA is equal to the distance from point
-    ptA to line entityB.
+  The distance from the line entityA to the point ptA is equal to the
+    distance from the line entityB to the point ptB.
 
   May be used in 3d or projected into a workplane
   ]##
   var sys = point.sys
-  newConstraint( sys, cLengthDifference, 0.0,
-                 #point, 0.Point3d, line, 0.IdEntity, workplane, group )
+  newConstraint( sys, cEqLenPtLine, 0.0,
                  point.id, 0.IdEntity, line1.id, line2.id, sys.currentWorkplane, sys.currentGroup )
 
 # cEqualLineArc
@@ -67,6 +66,5 @@ proc equalLength*(line:Segment; arc:ArcOfCircle):Slvs_Constraint {.discardable.}
   May be used in 3d or projected into a workplane
   ]##
   var sys = line.sys
-  newConstraint( sys, cLengthDifference, 0.0,
-                 #point, 0.Point3d, line, 0.IdEntity, workplane, group )
+  newConstraint( sys, cEqualLineArc, 0.0,
                  0.IdEntity, 0.IdEntity, line.id, arc.id, sys.currentWorkplane, sys.currentGroup )
