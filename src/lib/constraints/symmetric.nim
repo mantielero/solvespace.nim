@@ -16,11 +16,10 @@ proc symmetric*[P1,P2:Point3d | Point2d](p1:P1; p2:P2;
   ]##
   var sys = p1.sys
   newConstraint( sys, cSymmetric, 0.0,
-                 p1.id, p2.id, workplane.id, 0.id, sys.currentWorkplane, sys.currentGroup )
+                 p1.id, p2.id, workplane.id, 0.IdEntity, sys.currentWorkplane, sys.currentGroup )
 
 # cSymmetricHoriz
-proc symmetricHorizontal*[P1,P2:Point3d | Point2d](p1:P1; p2:P2; 
-          workplane:Workplane):Slvs_Constraint {.discardable.} =
+proc symmetricHorizontal*(p1, p2: Point2d):Slvs_Constraint {.discardable.} =
   ##[
   The points ptA and ptB are symmetric about the horizontal
     axis of the specified workplane.
@@ -29,11 +28,10 @@ proc symmetricHorizontal*[P1,P2:Point3d | Point2d](p1:P1; p2:P2;
   ]##
   var sys = p1.sys
   newConstraint( sys, cSymmetricHoriz, 0.0,
-                 p1.id, p2.id, workplane.id, 0.id, sys.currentWorkplane, sys.currentGroup )
+                 p1.id, p2.id, 0.IdEntity, 0.IdEntity, sys.currentWorkplane, sys.currentGroup )
 
 # cSymmetricVert
-proc symmetricVertical*[P1,P2:Point3d | Point2d](p1:P1; p2:P2; 
-          workplane:Workplane):Slvs_Constraint {.discardable.} =
+proc symmetricVertical*(p1,p2:Point2d):Slvs_Constraint {.discardable.} =
   ##[
   The points ptA and ptB are symmetric about the vertical
     axis of the specified workplane.
@@ -42,11 +40,10 @@ proc symmetricVertical*[P1,P2:Point3d | Point2d](p1:P1; p2:P2;
   ]##
   var sys = p1.sys
   newConstraint( sys, cSymmetricVert, 0.0,
-                 p1.id, p2.id, workplane.id, 0.id, sys.currentWorkplane, sys.currentGroup )
+                 p1.id, p2.id, 0.IdEntity, 0.IdEntity, sys.currentWorkplane, sys.currentGroup )
 
 # cSymmetricLine
-proc symmetricLine*[P1,P2:Point3d | Point2d](p1:P1; p2:P2; 
-          line:Segment):Slvs_Constraint {.discardable.} =
+proc symmetricLine*(p1, p2:Point2d; line:Segment):Slvs_Constraint {.discardable.} =
   ##[
   The points ptA and ptB are symmetric about the line entityA.
 
@@ -54,4 +51,4 @@ proc symmetricLine*[P1,P2:Point3d | Point2d](p1:P1; p2:P2;
   ]##
   var sys = p1.sys
   newConstraint( sys, cSymmetricLine, 0.0,
-                 p1.id, p2.id, line.id, 0.id, sys.currentWorkplane, sys.currentGroup )
+                 p1.id, p2.id, line.id, 0.IdEntity, sys.currentWorkplane, sys.currentGroup )
