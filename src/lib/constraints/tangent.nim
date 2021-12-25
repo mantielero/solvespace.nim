@@ -6,7 +6,7 @@ import general
 
 # cArcLineTangent
 # ------
-proc tangent*(arc:ArcOfCircle; line:Segment; other:bool = false):Slvs_Constraint {.discardable.} = 
+proc tangent*(line:Segment; arc:ArcOfCircle;  other:bool):Slvs_Constraint {.discardable.} = 
   ##[
     The arc entityA is tangent to the line entityB. If other is false,
     then the arc is tangent at its beginning (point[1]). If other is true,
@@ -16,7 +16,7 @@ proc tangent*(arc:ArcOfCircle; line:Segment; other:bool = false):Slvs_Constraint
   ]##
   var sys = line.sys
   result = newConstraint( sys, cAngle, 0.0,
-                 0.IdEntity, 0.IdEntity, line.id, arc.id, sys.currentWorkplane, sys.currentGroup, other )
+                 0.IdEntity, 0.IdEntity, arc.id, line.id, sys.currentWorkplane, sys.currentGroup, other )
   #result.other = other.cint
 
 
